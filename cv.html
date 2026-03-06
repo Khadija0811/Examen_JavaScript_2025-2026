@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV - FlowCV</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<h1>CV</h1>
+
+<section id="cvContainer"></section>
+
+<hr>
+
+<section id="templates">
+    <h2>Plus de modèles</h2>
+
+    <div class="templateCard">Modèle Moderne</div>
+    <div class="templateCard">Modèle Minimal</div>
+    <div class="templateCard">Modèle Élégant</div>
+</section>
+
+<script>
+    const data = JSON.parse(localStorage.getItem("cvData"));
+
+    if(data) {
+
+        const content = `
+            <div class="cv-card">
+                <p><strong>Nom :</strong> ${data.nom}</p>
+                <p><strong>Email :</strong> ${data.email}</p>
+                <p><strong>Téléphone :</strong> ${data.telephone}</p>
+                <p><strong>Adresse :</strong> ${data.adresse}</p>
+                <p><strong>Date et lieu de Naissance :</strong> ${data.date}</p>
+                <p><strong>Nationalité :</strong> ${data.nationalité}</p>
+        
+                <h3>Profil</h3>
+                <ul>${data.profil.map(item => `<li>${item}</li>`).join("")}</ul>
+                
+                <h3>Parcours Académiques</h3>
+                <ul>${data.parcours.map(item => `<li>${item}</li>`).join("")}</ul>
+
+                <h3>Expériences</h3>
+                <ul>${data.experiences.map(item => `<li>${item}</li>`).join("")}</ul>
+
+                <h3>Compétences</h3>
+                <ul>${data.competences.map(item => `<li>${item}</li>`).join("")}</ul>
+
+                <h3>Centres d’intérêt</h3>
+                <ul>${data.centres.map(item => `<li>${item}</li>`).join("")}</ul>
+            </div>
+        `;
+
+        document.getElementById("cvContainer").innerHTML = content;
+    }
+</script>
+
+</body>
+</html>
