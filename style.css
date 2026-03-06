@@ -1,0 +1,167 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* PALETTE BORDEAUX & BEIGE */
+:root {
+    --main-color: #6D071A;      /* Bordeaux profond */
+    --accent-color: #8E1B2F;    /* Bordeaux doux */
+    --soft-color: #F4EDE4;      /* Beige élégant */
+    --soft-dark: #E8D8C3;       /* Beige soutenu */
+    --text-color: #2B2B2B;
+    --white: #ffffff;
+}
+
+/* BODY */
+body {
+    background-color: #F9F6F1; /* Beige très clair doux */
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+}
+
+/* TITRE */
+h1 {
+    color: var(--main-color); /* Bordeaux */
+    margin-bottom: 30px;
+    font-size: 34px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* FORM CARD */
+form {
+    background: var(--soft-color);
+    padding: 35px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* SECTIONS */
+section {
+    margin-bottom: 25px;
+}
+
+section h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: var(--main-color);
+    border-left: 4px solid var(--main-color);
+    padding-left: 10px;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--soft-dark);
+    background-color: var(--white);
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: var(--main-color);
+    outline: none;
+    box-shadow: 0 0 8px rgba(109, 7, 26, 0.3);
+}
+
+/* BOUTONS */
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: var(--main-color);
+    color: white;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* BOUTON PRINCIPAL */
+button[type="submit"] {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* LISTES */
+ol, ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+li {
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    border-left: 4px solid var(--main-color);
+}
+
+/* RESULTAT CV */
+#cvResultat {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 600px;
+    background: var(--soft-color);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+#templates {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.templateCard {
+    display: inline-block;
+    background-color: var(--soft-color);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid var(--main-color);
+    transition: 0.3s;
+}
+
+.templateCard:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+.cv-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.cv-card h2 {
+    color: var(--main-color);
+    margin-bottom: 15px;
+}
+
+.cv-card h3 {
+    margin-top: 20px;
+    color: var(--main-color);
+}

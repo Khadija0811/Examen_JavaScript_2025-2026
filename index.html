@@ -3,9 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refonte FlowCV</title>
+    <title>Refonte_FlowCV</title>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    
+
+<h1>Refonte_FlowCV</h1>
+
+<form id="cvForm">
+
+    <!-- INFORMATIONS PERSONNELLES -->
+    <section>
+        <h2>Informations personnelles</h2>
+        <input type="text" id="nom" placeholder="Nom" required><br>
+        <input type="text" id="email" placeholder="Email" required><br>
+        <input type="text" id="telephone" placeholder="Téléphone" required><br>
+        <input type="text" id="adresse" placeholder="Adresse" required>
+        <input type="text" id="date" placeholder="Date et Lieu de Naissance " required>
+        <input type="text" id="nationalité" placeholder="Nationalité" required>
+    </section>
+
+    <!-- Profil  -->
+    <section> 
+        <h2>Profil</h2>
+        <textarea id="profilInput" placeholder="Ajouter une ligne de profil"></textarea>
+        <button type="button" id="addProfil">Ajouter</button>
+        <ul id="profilList"></ul>
+    </section>
+
+    <!-- PARCOURS -->
+    <section>
+        <h2>Parcours Académiques</h2>
+        <input type="text" id="parcoursInput" placeholder="Ajouter un parcours académique">
+        <button type="button" id="addParcours">Ajouter</button>
+        <ol id="parcoursList"></ol>
+    </section>
+
+    <!-- EXPERIENCES -->
+    <section>
+        <h2>Expériences Professionnelles</h2>
+        <input type="text" id="experienceInput" placeholder="Ajouter une expérience">
+        <button type="button" id="addExperience">Ajouter</button>
+        <ol id="experienceList"></ol>
+    </section>
+
+    <!-- COMPETENCES -->
+    <section>
+        <h2>Compétences</h2>
+        <input type="text" id="competenceInput" placeholder="Ajouter une compétence">
+        <button type="button" id="addCompetence">Ajouter</button>
+        <ul id="competenceList"></ul>
+    </section>
+
+    <!-- CENTRES -->
+    <section>
+        <h2>Centres d'intérêts</h2>
+        <input type="text" id="centreInput" placeholder="Ajouter un centre d'intérêt">
+        <button type="button" id="addCentre">Ajouter</button>
+        <ul id="centreList"></ul>
+    </section>
+
+
+    <button type="submit" name="btnlogin">Générer CV</button>
+
+</form>
+
+<hr>
+
+<section id="cvResultat"></section>
+
+<script src="assets/js/script.js"></script>
+<script src="assets/js/validation.js"></script>
+<script src="assets/vitrine/template.html"></script>
+
 </body>
 </html>
