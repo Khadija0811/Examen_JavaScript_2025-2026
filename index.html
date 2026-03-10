@@ -1,41 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refonte_FlowCV</title>
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<title>Formulaire CV - FlowCV</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<h1>Refonte_FlowCV</h1>
+<h1>FlowCV - Formulaire</h1>
 
 <form id="cvForm">
 
-    <!-- INFORMATIONS PERSONNELLES -->
     <section>
         <h2>Informations personnelles</h2>
+        <input type="text" id="prenom" placeholder="Prénom" required><br>
         <input type="text" id="nom" placeholder="Nom" required><br>
+        <input type="text" id="titre" placeholder="Titre professionnel (ex: Développeur Web)" required><br>
         <input type="text" id="email" placeholder="Email" required><br>
         <input type="text" id="telephone" placeholder="Téléphone" required><br>
-        <input type="text" id="adresse" placeholder="Adresse" required>
-        <input type="text" id="date" placeholder="Date et Lieu de Naissance " required>
-        <input type="text" id="nationalité" placeholder="Nationalité" required>
+        <input type="text" id="adresse" placeholder="Adresse" required><br>
+        <input type="text" id="date" placeholder="Date et Lieu de Naissance" required><br>
+        <input type="text" id="nationalité" placeholder="Nationalité" required><br>
+        <!-- Photo -->
+        <input type="file" id="photoInput" accept="image/*">
     </section>
 
-    <!-- Profil  -->
-    <section> 
-        <h2>Profil</h2>
-        <textarea id="profilInput" placeholder="Ajouter une ligne de profil"></textarea>
-        <button type="button" id="addProfil">Ajouter</button>
-        <ul id="profilList"></ul>
+    <section>
+        <h2>Résumé professionnel</h2>
+        <textarea id="resume" placeholder="Décrivez votre profil professionnel..." rows="4"></textarea>
     </section>
 
-    <!-- PARCOURS -->
     <section>
         <h2>Parcours Académiques</h2>
         <input type="text" id="parcoursInput" placeholder="Ajouter un parcours académique">
@@ -43,7 +38,6 @@
         <ol id="parcoursList"></ol>
     </section>
 
-    <!-- EXPERIENCES -->
     <section>
         <h2>Expériences Professionnelles</h2>
         <input type="text" id="experienceInput" placeholder="Ajouter une expérience">
@@ -51,7 +45,6 @@
         <ol id="experienceList"></ol>
     </section>
 
-    <!-- COMPETENCES -->
     <section>
         <h2>Compétences</h2>
         <input type="text" id="competenceInput" placeholder="Ajouter une compétence">
@@ -59,7 +52,20 @@
         <ol id="competenceList"></ol>
     </section>
 
-    <!-- CENTRES -->
+    <section>
+        <h2>Langues</h2>
+        <input type="text" id="langueInput" placeholder="Ajouter une langue">
+        <button type="button" id="addLangue">Ajouter</button>
+        <ol id="langueList"></ol>
+    </section>
+
+    <section>
+        <h2>Qualités</h2>
+        <input type="text" id="qualiteInput" placeholder="Ajouter une qualité">
+        <button type="button" id="addQualite">Ajouter</button>
+        <ol id="qualiteList"></ol>
+    </section>
+    
     <section>
         <h2>Centres d'intérêts</h2>
         <input type="text" id="centreInput" placeholder="Ajouter un centre d'intérêt">
@@ -67,18 +73,123 @@
         <ol id="centreList"></ol>
     </section>
 
+    <section id="templates">
+        <h2>Choisissez un modèle de CV</h2>
+        <button type="button" class="templateCard" data-template="moderne" style="color: black; font-size: 18px; padding: 16px;">Modèle Moderne</button>
+        <button type="button" class="templateCard" data-template="minimal" style="color: black; font-size: 18px; padding: 16px;">Modèle Minimal</button>
+        <button type="button" class="templateCard" data-template="elegant" style="color: black; font-size: 18px; padding: 16px;">Modèle Élégant</button>
+    </section>
 
     <button type="submit" name="btnlogin">Générer CV</button>
 
 </form>
 
-<hr>
+<script>
+$(document).ready(function(){
 
-<section id="cvResultat"></section>
+    // Gestion des listes
+    function gestionListe(inputId, buttonId, listId){
+        $(buttonId).on("click", function(){
+            let valeur = $(inputId).val().trim();
+            if(valeur !== ""){
+                $(listId).append(
+                    "<li>" + valeur + " <button type='button' class='delete'>Supprimer</button></li>"
+                );
+                $(inputId).val("");
+            }
+        });
+        $(listId).on("click", ".delete", function(){
+            $(this).parent().remove();
+        });
+    }
 
-<script src="assets/js/script.js"></script>
-<script src="assets/js/validation.js"></script>
-<script src="assets/vitrine/template.html"></script>
+    gestionListe("#profilInput", "#addProfil", "#profilList");
+    gestionListe("#parcoursInput", "#addParcours", "#parcoursList");
+    gestionListe("#experienceInput", "#addExperience" ,"#experienceList");
+    gestionListe("#competenceInput", "#addCompetence", "#competenceList");
+    gestionListe("#centreInput", "#addCentre", "#centreList");
+    gestionListe("#langueInput", "#addLangue", "#langueList");
+    gestionListe("#qualiteInput", "#addQualite", "#qualiteList");
+
+    // Template
+    let templateChoisi = "";
+    $(".templateCard").on("click", function(){
+        $(".templateCard").removeClass("selected");
+        $(this).addClass("selected");
+        templateChoisi = $(this).data("template");
+    });
+
+    // Submit
+    $("#cvForm").on("submit", function(e){
+        e.preventDefault();
+        if(templateChoisi === ""){
+            alert("Veuillez choisir un modèle de CV !");
+            return;
+        }
+
+        const prenom = $("#prenom").val();
+        const nom = $("#nom").val();
+        const titre = $("#titre").val();
+        const resume = $("#resume").val();
+        const email = $("#email").val();
+        const telephone = $("#telephone").val();
+        const adresse = $("#adresse").val();
+        const date = $("#date").val();
+        const nationalité = $("#nationalité").val();
+        const photoFile = $("#photoInput")[0].files[0];
+        
+
+        function cleanList(selector){
+            return $(selector).map(function(){
+                return $(this).contents().first().text().trim();
+            }).get();
+        }
+
+        const profil = cleanList("#profilList li");
+        const parcours = cleanList("#parcoursList li");
+        const experiences = cleanList("#experienceList li");
+        const competences = cleanList("#competenceList li");
+        const centres = cleanList("#centreList li");
+        const langues = cleanList("#langueList li");
+        const qualites = cleanList("#qualiteList li");
+
+        // Fonction pour sauvegarder avec ou sans photo
+        function saveCV(photoBase64){
+            localStorage.setItem("cvData", JSON.stringify({
+                prenom,
+                nom,
+                titre,
+                resume,
+                email,
+                telephone,
+                adresse,
+                date,
+                nationalité,
+                profil,
+                parcours,
+                experiences,
+                competences,
+                centres,
+                langues,
+                qualites,
+                template: templateChoisi,
+                photo: photoBase64 || null
+            }));
+            window.location.href = "cv.html";
+        }
+
+        if(photoFile){
+            const reader = new FileReader();
+            reader.onload = function(e){
+                saveCV(e.target.result);
+            };
+            reader.readAsDataURL(photoFile);
+        } else {
+            saveCV(null);
+        }
+    });
+});
+</script>
 
 </body>
 </html>

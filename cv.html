@@ -1,60 +1,417 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>CV - FlowCV</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="script.js"></script>
+<meta charset="UTF-8">
+<title>CV - FlowCV</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
+padding:40px;
+}
+
+.cv{
+width:210mm;
+min-height:297mm;
+margin:auto;
+background:white;
+box-sizing:border-box;
+padding:20mm;
+overflow: hidden;
+}
+
+#cvContainer{
+width:100%;
+max-width:950px;
+}
+
+button#exportPDF{
+margin-top:30px;
+padding:12px 25px;
+background:#8E1B2F;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.cv.modern{
+display:flex;
+background:white;
+box-shadow:0 10px 30px rgba(162, 42, 42, 0.2);
+}
+
+.cv.modern .left{
+width:47%;
+background:#1B3A57;
+color:white;
+padding:30px;
+}
+
+
+.cv.modern img{
+width:150px;
+height:170px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:15px;
+border:4px solid white;
+}
+
+.cv.modern .right{
+width:65%;
+padding:30px;
+background:#f9fbfd;
+}
+
+.cv.modern h2{
+border-bottom:2px solid #4DA1D8;
+padding-bottom:5px;
+margin-top:20px;
+}
+
+.cv.minimal{
+background:white;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.cv.minimal .header{
+background:#d9c4bd;
+display:flex;
+align-items:center;
+padding:25px;
+}
+
+.cv.minimal .header img{
+width:120px;
+height:120px;
+margin-right:20px;
+object-fit:cover;
+}
+
+.cv.minimal .content{
+display:flex;
+}
+
+.cv.minimal .left{
+width:35%;
+background:#f2f2f2;
+padding:20px;
+}
+
+.cv.minimal .right{
+width:65%;
+padding:20px;
+}
+
+.cv.minimal h2{
+background:black;
+color:white;
+padding:5px;
+font-size:14px;
+}
+
+.cv.elegant{
+background:white;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+.cv.elegant .header{
+background:#e6d6be;
+display:flex;
+align-items:center;
+padding:30px;
+}
+
+.cv.elegant .header img{
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+margin-right:25px;
+border:5px solid #d4b483;
+}
+
+.cv.elegant .main{
+display:flex;
+}
+
+.cv.elegant .left{
+width:35%;
+background:#d9b985;
+padding:25px;
+}
+
+.cv.elegant .right{
+width:65%;
+padding:30px;
+background:#f5f5f5;
+}
+
+.skill{
+margin-bottom:10px;
+list-style:none;
+}
+
+.skill-bar{
+height:6px;
+background:#ddd;
+border-radius:5px;
+margin-top:4px;
+}
+
+.skill-level{
+height:6px;
+background:#3498db;
+width:70%;
+border-radius:5px;
+}
+
+.info-item{
+margin:5px 0;
+}
+
+</style>
 </head>
+
 <body>
 
-<h1>CV</h1>
+<div id="cvContainer"></div>
 
-<section id="cvContainer"></section>
-
-<hr>
-
-<section id="templates">
-    <h2>Plus de modèles</h2>
-
-    <div class="templateCard">Modèle Moderne</div>
-    <div class="templateCard">Modèle Minimal</div>
-    <div class="templateCard">Modèle Élégant</div>
-</section>
+<center>
+<button id="exportPDF">Exporter en PDF</button>
+</center>
 
 <script>
-    const data = JSON.parse(localStorage.getItem("cvData"));
 
-    if(data) {
+const data = JSON.parse(localStorage.getItem("cvData"));
 
-        const content = `
-            <div class="cv-card">
-                <p><strong>Nom :</strong> ${data.nom}</p>
-                <p><strong>Email :</strong> ${data.email}</p>
-                <p><strong>Téléphone :</strong> ${data.telephone}</p>
-                <p><strong>Adresse :</strong> ${data.adresse}</p>
-                <p><strong>Date et lieu de Naissance :</strong> ${data.date}</p>
-                <p><strong>Nationalité :</strong> ${data.nationalité}</p>
-        
-                <h3>Profil</h3>
-                <ul>${data.profil.map(item => `<li>${item}</li>`).join("")}</ul>
-                
-                <h3>Parcours Académiques</h3>
-                <ul>${data.parcours.map(item => `<li>${item}</li>`).join("")}</ul>
+if(!data){
+document.getElementById("cvContainer").innerHTML="<p>Aucune donnée trouvée.</p>";
+throw new Error("Pas de données CV");
+}
 
-                <h3>Expériences</h3>
-                <ul>${data.experiences.map(item => `<li>${item}</li>`).join("")}</ul>
+const templates={
 
-                <h3>Compétences</h3>
-                <ul>${data.competences.map(item => `<li>${item}</li>`).join("")}</ul>
+moderne:`
 
-                <h3>Centres d’intérêt</h3>
-                <ul>${data.centres.map(item => `<li>${item}</li>`).join("")}</ul>
-            </div>
-        `;
+<div class="cv modern">
 
-        document.getElementById("cvContainer").innerHTML = content;
-    }
+<div class="left">
+
+<img src="" alt="Photo">
+
+<h1 class="nom"></h1>
+
+<h2 class="titre"></h2>
+
+<div class="infos"></div>
+
+<h2>Résumé</h2>
+<p class="resume"></p>
+
+<h2>Langues</h2>
+<ul class="langues"></ul>
+
+</div>
+
+<div class="right">
+
+<h2>Compétences</h2>
+<ul class="competences"></ul>
+
+<h2>Expériences</h2>
+<ul class="experiences"></ul>
+
+<h2>Formations</h2>
+<ul class="formations"></ul>
+
+<h2>Centres d'intérêt</h2>
+<ul class="centres"></ul>
+
+<h2>Qualités</h2>
+<ul class="qualites"></ul>
+
+</div>
+
+</div>
+`,
+
+minimal:`
+
+<div class="cv minimal">
+
+<div class="header">
+
+<img src="" alt="Photo">
+
+<div>
+<h1 class="nom"></h1>
+
+<h2 class="titre"></h2>
+<div class="infos"></div>
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="left">
+
+<h2>Résumé</h2>
+<p class="resume"></p>
+
+<h2>Langues</h2>
+<ul class="langues"></ul>
+
+<h2>Qualités</h2>
+<ul class="qualites"></ul>
+
+<h2>Centres d'intérêt</h2>
+<ul class="centres"></ul>
+
+</div>
+
+<div class="right">
+
+<h2>Compétences</h2>
+<ul class="competences"></ul>
+
+<h2>Expérience Professionnelle</h2>
+<ul class="experiences"></ul>
+
+<h2>Formation</h2>
+<ul class="formations"></ul>
+
+</div>
+
+</div>
+
+</div>
+`,
+
+elegant:`
+
+<div class="cv elegant">
+
+<div class="header">
+
+<img src="" alt="Photo">
+
+<div>
+<h1 class="nom"></h1>
+<h2 class="titre"></h2>
+<div class="infos"></div>
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="left">
+<h2>Résumé</h2>
+<p class="resume"></p>
+<h2>Compétences</h2>
+<ul class="competences"></ul>
+<h2>Expérience</h2>
+<ul class="experiences"></ul>
+</div>
+
+<div class="right">
+<h2>Formation</h2>
+<ul class="formations"></ul>
+
+<h2>Langues</h2>
+<ul class="langues"></ul>
+
+<h2>Qualités</h2>
+<ul class="qualites"></ul>
+
+<h2>Centres d'intérêt</h2>
+<ul class="centres"></ul>
+
+</div>
+
+</div>
+
+</div>
+`
+
+};
+const container=document.getElementById("cvContainer");
+
+container.innerHTML=templates[data.template] || templates.moderne;
+
+const cv=container.querySelector(".cv");
+
+const img=cv.querySelector("img");
+
+if(data.photo && img){
+img.src=data.photo;
+}else if(img){
+img.style.display="none";
+}
+
+const nom=cv.querySelector(".nom");
+if(nom) nom.textContent = data.prenom + " " + data.nom;
+
+const titre=cv.querySelector(".titre");
+if(titre) titre.textContent = data.titre || "";
+
+const resume=cv.querySelector(".resume");
+if(resume) resume.textContent = data.resume || "";
+
+const infos=cv.querySelector(".infos");
+
+if(infos){
+infos.innerHTML=`
+<p class="info-item">📧 ${data.email || ""}</p>
+<p class="info-item">📞 ${data.telephone || ""}</p>
+<p class="info-item">📍 ${data.adresse || ""}</p>
+<p class="info-item">🎂 ${data.date || ""}</p>
+<p class="info-item">🌍 ${data.nationalité || ""}</p>
+`;
+}
+
+function remplirListe(classe,dataArray){
+
+const ul=cv.querySelector("."+classe);
+
+if(!ul || !dataArray) return;
+
+ul.innerHTML=dataArray.map(item=>`<li>${item}</li>`).join("");
+
+}
+
+remplirListe("profil",data.profil);
+remplirListe("experiences",data.experiences);
+remplirListe("formations",data.parcours);
+remplirListe("competences",data.competences);
+remplirListe("centres",data.centres);
+remplirListe("langues",data.langues);
+remplirListe("qualites",data.qualites);
+
+
+document.getElementById("exportPDF").addEventListener("click",function(){
+
+const opt={
+margin:0,
+filename:`cv-${data.template}.pdf`,
+image:{type:'jpeg',quality:1},
+html2canvas:{scale:1},
+jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+};
+
+html2pdf().set(opt).from(cv).save();
+
+});
+
 </script>
 
 </body>
