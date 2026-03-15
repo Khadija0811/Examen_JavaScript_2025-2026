@@ -58,3 +58,48 @@ submitCV(templateChoisi);
 });
 
 });
+function validerEmail(email){
+    const regex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+document.getElementById("email").addEventListener("blur",function(){
+    let email=this.value;
+    let erreur=document.getElementById("emailError");
+
+    if(!validerEmail(email)){
+        erreur.textContent="Adresse email invalide";
+    }else{
+        erreur.textContent="";
+    }
+});
+
+function validerTelephone(numero){
+    const regex=/^(70|75|76|77|78)[0-9]{7}$/;
+    return regex.test(numero);
+}
+
+document.getElementById("telephone").addEventListener("blur",function(){
+    let tel=this.value;
+    let erreur=document.getElementById("telError");
+
+    if(!validerTelephone(tel)){
+        erreur.textContent="Numéro sénégalais invalide";
+    }else{
+        erreur.textContent="";
+    }
+});
+
+
+function verifierChamps(){
+
+    let nom=document.getElementById("nom").value;
+    let prenom=document.getElementById("prenom").value;
+
+    if(nom==="" || prenom===""){
+        alert("Veuillez remplir tous les champs obligatoires");
+        return false;
+    }
+
+    return true;
+}

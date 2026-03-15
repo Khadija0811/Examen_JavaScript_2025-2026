@@ -20,7 +20,9 @@
         <input type="text" id="nom" placeholder="Nom" required><br>
         <input type="text" id="titre" placeholder="Titre professionnel (ex: Développeur Web)" required><br>
         <input type="text" id="email" placeholder="Email" required><br>
+        <span id="emailError" class="error"></span> <br>
         <input type="text" id="telephone" placeholder="Téléphone" required><br>
+        <span id="telError" class="error"></span> <br>
         <input type="text" id="adresse" placeholder="Adresse" required><br>
         <input type="text" id="date" placeholder="Date et Lieu de Naissance" required><br>
         <input type="text" id="nationalité" placeholder="Nationalité" required><br>
@@ -83,11 +85,16 @@
     </section>
 
     <button type="submit" name="btnlogin">Générer CV</button>
+    
 
 </form>
 
 <script>
 $(document).ready(function(){
+    // Vérification de la connexion
+    if(!localStorage.getItem("userEmail")){
+    window.location.href="login.html";
+    }
 
     // Gestion des listes
     function gestionListe(inputId, buttonId, listId){
@@ -140,6 +147,18 @@ $(document).ready(function(){
         const nationalité = $("#nationalité").val();
         const photoFile = $("#photoInput")[0].files[0];
         
+            function verifierChamps(){
+
+        let nom=document.getElementById("nom").value;
+        let prenom=document.getElementById("prenom").value;
+
+        if(nom==="" || prenom===""){
+            alert("Veuillez remplir tous les champs obligatoires");
+            return false;
+        }
+
+        return true;
+    }
 
         function cleanList(selector){
             return $(selector).map(function(){
@@ -190,6 +209,15 @@ $(document).ready(function(){
             saveCV(null);
         }
     });
+});
+
+document.getElementById("generateCV").addEventListener("click",function(){
+
+    if(!verifierChamps()){
+        return;
+    }
+
+    genererCV();
 });
 </script>
 
