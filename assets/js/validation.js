@@ -69,8 +69,10 @@ document.getElementById("email").addEventListener("blur",function(){
 
     if(!validerEmail(email)){
         erreur.textContent="Adresse email invalide";
+        erreur.style.display="inline";
     }else{
         erreur.textContent="";
+        erreur.style.display="none";
     }
 });
 
@@ -85,8 +87,10 @@ document.getElementById("telephone").addEventListener("blur",function(){
 
     if(!validerTelephone(tel)){
         erreur.textContent="Numéro sénégalais invalide";
+        erreur.style.display="inline";
     }else{
         erreur.textContent="";
+        erreur.style.display="none";
     }
 });
 

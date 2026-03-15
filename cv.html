@@ -41,6 +41,17 @@ border-radius:6px;
 cursor:pointer;
 }
 
+button#logoutBtn{
+margin-top:30px;
+padding:12px 25px;
+background:#1B3A57;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+
 .cv.modern{
 display:flex;
 background:white;
@@ -184,13 +195,18 @@ margin:5px 0;
 
 <div id="cvContainer"></div>
 
-<center>
-<button id="exportPDF" style="font-size: 18px;">Exporter en PDF</button>
-</center>
+<div id="cvActions" style="text-align:center; margin-top:30px;">
+    <button id="exportPDF" style="font-size: 16px; margin-right:10px;">Exporter en PDF</button>
+    <button id="logoutBtn" style="font-size: 16px;">Déconnexion</button>
+</div>
 
 
 <script src="assets/js/template.js"></script>
-
+<script>
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+        window.location.href = "index.html"; // redirige vers la page d'accueil
+    });
+</script>
 
 </body>
 </html>

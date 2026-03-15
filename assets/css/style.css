@@ -209,6 +209,5 @@ width:100%;
 .error{
 color:red;
 font-size:14px;
-margin-top:4px;
-display:block;
+display:none;
 }
