@@ -30,7 +30,7 @@ if(valide){
 
 localStorage.setItem("userEmail", email);
 
-window.location.href="index.html";
+window.location.href="formulaire.html";
 
 }
 
