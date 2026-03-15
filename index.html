@@ -1,225 +1,114 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Formulaire CV - FlowCV</title>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="assets/js/validation.js"></script>
-<script src="assets/js/localStorage.js"></script>
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCV - Build your resume</title>
+    <link rel="stylesheet" href="assets/css/accueil.css">
+    
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 </head>
 <body>
 
-<h1>FlowCV - Formulaire</h1>
+<!-- HEADER -->
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-box">F</div>
+        <span>FlowCV</span>
+    </div>
 
-<form id="cvForm">
+    <nav>
+        <a href="#">Resume Templates</a>
+        <a href="#">Pricing</a>
+        <a href="#">About</a>
+    </nav>
 
-    <section>
-        <h2>Informations personnelles</h2>
-        <input type="text" id="prenom" placeholder="Prénom" required><br>
-        <input type="text" id="nom" placeholder="Nom" required><br>
-        <input type="text" id="titre" placeholder="Titre professionnel (ex: Développeur Web)" required><br>
-        <input type="text" id="email" placeholder="Email" required><br>
-        <span id="emailError" class="error"></span> <br>
-        <input type="text" id="telephone" placeholder="Téléphone" required><br>
-        <span id="telError" class="error"></span> <br>
-        <input type="text" id="adresse" placeholder="Adresse" required><br>
-        <input type="text" id="date" placeholder="Date et Lieu de Naissance" required><br>
-        <input type="text" id="nationalité" placeholder="Nationalité" required><br>
-        <!-- Photo -->
-        <input type="file" id="photoInput" accept="image/*">
-    </section>
+    <div class="nav-buttons">
+        <a href="login.html"><button class=" btn btn-dark">Login</button></a>
+        <a href="login.html"><button class="btn-dark">Get Started</button></a>
+    </div>
+</header>
 
-    <section>
-        <h2>Résumé professionnel</h2>
-        <textarea id="resume" placeholder="Décrivez votre profil professionnel..." rows="4"></textarea>
-    </section>
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-text">
+        <h4>Free Online Resume Builder</h4>
+        <h1>Build a job-winning resume for free</h1>
+        <p>Your first resume is 100% free forever.</p>
+        <p>Unlimited downloads. No hidden fees.</p>
+        <a href="login.html"><button class="btn-dark large">Get started – it's free ✨</button></a>
+    </div>
 
-    <section>
-        <h2>Parcours Académiques</h2>
-        <input type="text" id="parcoursInput" placeholder="Ajouter un parcours académique">
-        <button type="button" id="addParcours">Ajouter</button>
-        <ol id="parcoursList"></ol>
-    </section>
+</section>
 
-    <section>
-        <h2>Expériences Professionnelles</h2>
-        <input type="text" id="experienceInput" placeholder="Ajouter une expérience">
-        <button type="button" id="addExperience">Ajouter</button>
-        <ol id="experienceList"></ol>
-    </section>
+<!-- FEATURES -->
+<section class="features">
+    <h2>What's included in FlowCV's Free Plan</h2>
 
-    <section>
-        <h2>Compétences</h2>
-        <input type="text" id="competenceInput" placeholder="Ajouter une compétence">
-        <button type="button" id="addCompetence">Ajouter</button>
-        <ol id="competenceList"></ol>
-    </section>
+    <div class="features-grid">
 
-    <section>
-        <h2>Langues</h2>
-        <input type="text" id="langueInput" placeholder="Ajouter une langue">
-        <button type="button" id="addLangue">Ajouter</button>
-        <ol id="langueList"></ol>
-    </section>
+        <div class="card">
+            <h3>Your First Resume Is Free Forever</h3>
+            <p>Create and save one resume for free for life.</p>
+        </div>
 
-    <section>
-        <h2>Qualités</h2>
-        <input type="text" id="qualiteInput" placeholder="Ajouter une qualité">
-        <button type="button" id="addQualite">Ajouter</button>
-        <ol id="qualiteList"></ol>
-    </section>
-    
-    <section>
-        <h2>Centres d'intérêts</h2>
-        <input type="text" id="centreInput" placeholder="Ajouter un centre d'intérêt">
-        <button type="button" id="addCentre">Ajouter</button>
-        <ol id="centreList"></ol>
-    </section>
+        <div class="card">
+            <h3>No Watermarks</h3>
+            <p>Your resume belongs to you. No branding.</p>
+        </div>
 
-    <section id="templates">
-        <h2>Choisissez un modèle de CV</h2>
-        <button type="button" class="templateCard" data-template="moderne" style="color: black; font-size: 18px; padding: 16px;">Modèle Moderne</button>
-        <button type="button" class="templateCard" data-template="minimal" style="color: black; font-size: 18px; padding: 16px;">Modèle Minimal</button>
-        <button type="button" class="templateCard" data-template="elegant" style="color: black; font-size: 18px; padding: 16px;">Modèle Élégant</button>
-    </section>
+        <div class="card">
+            <h3>Unlimited PDF Downloads</h3>
+            <p>Download as many times as you want.</p>
+        </div>
 
-    <button type="submit" name="btnlogin">Générer CV</button>
-    
+        <div class="card">
+            <h3>50+ Templates</h3>
+            <p>Choose modern and ATS-friendly templates.</p>
+        </div>
 
-</form>
+        <div class="card">
+            <h3>Import or Start From Scratch</h3>
+            <p>Upload or create from zero.</p>
+        </div>
 
-<script>
-$(document).ready(function(){
-    // Vérification de la connexion
-    if(!localStorage.getItem("userEmail")){
-    window.location.href="login.html";
-    }
+        <div class="card">
+            <h3>Privacy First</h3>
+            <p>Your data is secure and never shared.</p>
+        </div>
 
-    // Gestion des listes
-    function gestionListe(inputId, buttonId, listId){
-        $(buttonId).on("click", function(){
-            let valeur = $(inputId).val().trim();
-            if(valeur !== ""){
-                $(listId).append(
-                    "<li>" + valeur + " <button type='button' class='delete'>Supprimer</button></li>"
-                );
-                $(inputId).val("");
-            }
-        });
-        $(listId).on("click", ".delete", function(){
-            $(this).parent().remove();
-        });
-    }
+    </div>
+</section>
 
-    gestionListe("#profilInput", "#addProfil", "#profilList");
-    gestionListe("#parcoursInput", "#addParcours", "#parcoursList");
-    gestionListe("#experienceInput", "#addExperience" ,"#experienceList");
-    gestionListe("#competenceInput", "#addCompetence", "#competenceList");
-    gestionListe("#centreInput", "#addCentre", "#centreList");
-    gestionListe("#langueInput", "#addLangue", "#langueList");
-    gestionListe("#qualiteInput", "#addQualite", "#qualiteList");
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3>FlowCV</h3>
+            <p>The modern way to build your resume.</p>
+        </div>
 
-    // Template
-    let templateChoisi = "";
-    $(".templateCard").on("click", function(){
-        $(".templateCard").removeClass("selected");
-        $(this).addClass("selected");
-        templateChoisi = $(this).data("template");
-    });
+        <div>
+            <h4>Product</h4>
+            <p>Templates</p>
+            <p>Pricing</p>
+        </div>
 
-    // Submit
-    $("#cvForm").on("submit", function(e){
-        e.preventDefault();
-        if(templateChoisi === ""){
-            alert("Veuillez choisir un modèle de CV !");
-            return;
-        }
+        <div>
+            <h4>Company</h4>
+            <p>About</p>
+            <p>Contact</p>
+        </div>
+    </div>
 
-        const prenom = $("#prenom").val();
-        const nom = $("#nom").val();
-        const titre = $("#titre").val();
-        const resume = $("#resume").val();
-        const email = $("#email").val();
-        const telephone = $("#telephone").val();
-        const adresse = $("#adresse").val();
-        const date = $("#date").val();
-        const nationalité = $("#nationalité").val();
-        const photoFile = $("#photoInput")[0].files[0];
-        
-            function verifierChamps(){
+    <div class="footer-bottom">
+        © 2026 FlowCV. All rights reserved.
+    </div>
+</footer>
 
-        let nom=document.getElementById("nom").value;
-        let prenom=document.getElementById("prenom").value;
 
-        if(nom==="" || prenom===""){
-            alert("Veuillez remplir tous les champs obligatoires");
-            return false;
-        }
-
-        return true;
-    }
-
-        function cleanList(selector){
-            return $(selector).map(function(){
-                return $(this).contents().first().text().trim();
-            }).get();
-        }
-
-        const profil = cleanList("#profilList li");
-        const parcours = cleanList("#parcoursList li");
-        const experiences = cleanList("#experienceList li");
-        const competences = cleanList("#competenceList li");
-        const centres = cleanList("#centreList li");
-        const langues = cleanList("#langueList li");
-        const qualites = cleanList("#qualiteList li");
-
-        // Fonction pour sauvegarder avec ou sans photo
-        function saveCV(photoBase64){
-            localStorage.setItem("cvData", JSON.stringify({
-                prenom,
-                nom,
-                titre,
-                resume,
-                email,
-                telephone,
-                adresse,
-                date,
-                nationalité,
-                profil,
-                parcours,
-                experiences,
-                competences,
-                centres,
-                langues,
-                qualites,
-                template: templateChoisi,
-                photo: photoBase64 || null
-            }));
-            window.location.href = "cv.html";
-        }
-
-        if(photoFile){
-            const reader = new FileReader();
-            reader.onload = function(e){
-                saveCV(e.target.result);
-            };
-            reader.readAsDataURL(photoFile);
-        } else {
-            saveCV(null);
-        }
-    });
-});
-
-document.getElementById("generateCV").addEventListener("click",function(){
-
-    if(!verifierChamps()){
-        return;
-    }
-
-    genererCV();
-});
-</script>
 
 </body>
 </html>
